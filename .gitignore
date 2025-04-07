@@ -6,3 +6,6 @@ data
 
 starter_project.txt
 
+.venv/
+
+*.pyc
