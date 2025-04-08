@@ -49,7 +49,8 @@ print(classification_report(y_test, y_pred))
 
 #auswerttung in a nutshell 
 
-#precision = Wieiviel der vom Modell als z.b. Netzwerke vorhergesagten aufgaben waren auch wirklich netzwerke? 
+#precision = Wieiviel der vom (klassifikations)Modell als z.b. Netzwerke vorhergesagten aufgaben waren auch wirklich netzwerke? 
+                            # randomforestClassifier von scikit-learn 
 
 #recall = wie viele aller tatsächlichen netzwerk aufgaben hat das modell richtig erkannt ? 
 
