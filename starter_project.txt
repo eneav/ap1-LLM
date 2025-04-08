@@ -1,0 +1,100 @@
+
+schritte für projekt from scratch start 
+
+------------------------------------------------------------------------------
+
+1. virtuelle umgebung aktivieren
+
+du musst im projektordner sein und machst:
+
+
+                        python -m venv .venv  
+
+                        .venv\Scripts\activate
+
+(wenn du noch keine .venv hast: einfach python -m venv .venv)
+
+------------------------------------------------------------------------------
+
+2. requirements installieren
+
+du brauchst die packages aus requirements.txt – also einfach:
+
+                        pip install -r requirements.txt
+
+------------------------------------------------------------------------------
+
+3. pdfs vorbereiten
+
+leg die ap1 prüfungen, die du verwenden willst, in:
+
+                        data/raw_pdfs/
+
+wenn du sie vorher noch mit ocr umwandeln musst (z. B. mit pdf24.org), mach das zuerst.
+
+WICHTIG=== da es sich um KEINE INTERNEN DATEN gehandelt hat, habe ich auf externe Tools für das 
+umwandeln in lesbare Datensätze verwendet (OCR-Tools) 
+
+https://tools.pdf24.org/de/ocr-pdf
+
+------------------------------------------------------------------------------
+
+4. json erzeugen (nur bei neuen prüfungen nötig)
+    (also bei transformierung der datensätze)
+
+diesen script ausführen, um die jsons zu erzeugen:
+
+                        python util/pdf_to_json.py
+
+die dateien landen dann in:
+
+                        data/converted_json/
+
+------------------------------------------------------------------------------
+
+5. train data erzeugen 
+
+wandelt die jsons in ein csv um für die ml-modelle:
+
+                        python ml_model/train_model.py
+
+
+die datei heißt dann = training_data.csv 
+
+-> training_data.csv
+
+------------------------------------------------------------------------------
+
+6. prüfung generieren (optional)
+
+wenn du neue prüfungen generieren willst (z. B. ap1 2026):
+
+                        python generator/generate_exam.py
+
+die neue json landet dann auch in converted_json, z. B.:
+
+                        generated_ap1_2026_01.json
+
+------------------------------------------------------------------------------
+
+7. modelle evaluieren (optional)
+
+um zu sehen/prüfen, gut der classifier funktioniert:
+
+                        python ml_model/evaluate_model.py
+
+da kriegst du dann eine zusammenfassung mit accuracy, precision usw.
+
+ergebnis: accuracy und precision 
+------------------------------------------------------------------------------
+
+hinweise:
+
+- alle jsons müssen in data/converted_json/ liegen (egal ob original o generiert)
+- benenn die files am besten so:
+
+      ap1_fruehjahr_2025.json
+      generated_ap1_2026_01.json
+
+------------------------------------------------------------------------------
+
