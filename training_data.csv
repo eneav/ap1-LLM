@@ -22,6 +22,19 @@ AP1,2025,1,IT-Sicherheit,offene Frage,Nennen Sie vier Maßnahmen aus dem gegeben
 AP1,2025,1,E-Mail-Verschlüsselung,offene Frage,"Beschreiben Sie, wie die asymmetrische Verschlüsselung beim E-Mail-Verkehr zwischen Anwalt und Mandant funktioniert.",Der Anwalt verschlüsselt die Nachricht mit dem öffentlichen Schlüssel des Mandanten. Nur der Mandant kann sie mit seinem privaten Schlüssel entschlüsseln.,
 AP1,2025,1,Webentwicklung,offene Frage,Erläutern Sie den Unterschied zwischen einer statischen und einer dynamischen Website.,"Statische Websites zeigen immer denselben Inhalt, während dynamische Inhalte serverseitig generiert und personalisiert werden können.",
 AP1,2025,1,KI im Kanzleialltag,offene Frage,Nennen Sie drei sinnvolle Einsatzbereiche von KI innerhalb des beschriebenen Ablaufs in der Kanzlei.,"Recherche zu Mandantendaten, automatische Terminvorschläge, Unterstützung bei Vorabrecherche für Anwälte.",
-FISI,2026,1,Netzwerke,Multiple Choice,"Welches Protokoll wird genutzt, um IP-Adressen automatisch zuzuweisen?",DHCP,Frühjahr
-FISI,2026,2,Datenbanken,Offene Frage,Erklären Sie den Unterschied zwischen einer relationalen Datenbank und einer NoSQL-Datenbank.,"Eine relationale Datenbank ist ein typisches Datenbankmanagementsystem, das auf der Basis der relationalen Algebra arbeitet. Die Daten werden in Tabellen gespeichert, die über eindeutige Schlüssel miteinander verknüpft werden können. Eine NoSQL-Datenbank hingegen ist ein nicht-relationales Datenbankmanagementsystem, das für den Umgang mit großen Datenmengen und Echtzeit-Anwendungen konzipiert ist. Sie speichert Daten in einem Format, das nicht tabellenbasiert ist, z.B. als JSON-Dokumente, Graphen oder Schlüssel-Wert-Paare.",Frühjahr
-FISI,2026,3,OOP,Berechnung,"Wie viele Methoden sind in einer Java-Klasse, die 2 Getter, 2 Setter, 1 Konstruktor und 1 Hilfsmethode enthält?",6,Frühjahr
+FISI,2026,1,Netzwerke,offene Frage,"Beschreiben Sie, was ein VLAN ist und wie es in einem Netzwerk verwendet wird. Erläutern Sie außerdem, welche Vorteile die Verwendung eines VLANs mit sich bringt.","Ein VLAN steht für Virtual Local Area Network und ist ein logisch getrenntes Netzwerk innerhalb eines physischen Netzwerks. Es gruppiert Netzwerkgeräte, sodass sie sich so verhalten, als ob sie gemeinsam verbunden wären, obwohl sie sich physisch an unterschiedlichen Orten befinden könnten. Die Verwendung von VLANs erhöht die Netzwerkeffizienz, verbessert die Sicherheit durch die Isolierung des Datenverkehrs und erleichtert die Verwaltung, da Netzwerkressourcen zentral konfiguriert werden können.",Frühjahr
+FISI,2026,2,Datenbanken,multiple choice,Welche der folgenden Aussagen über SQL ist falsch?,"SQL ist eine nicht-prozedurale Sprache, die zum Erstellen, Ändern und Verwalten von Daten in relationalen Datenbanken verwendet wird. Sie ist standardisiert und wird von den meisten Datenbanksystemen unterstützt. Die falsche Aussage könnte sein, dass SQL nicht zum Löschen von Daten aus einer Datenbank verwendet werden kann, da dies tatsächlich möglich ist.",Frühjahr
+FISI,2026,3,OOP,Berechnung,"Schreiben Sie einen kurzen Codeausschnitt in Java, der eine Klasse 'Auto' mit den Eigenschaften 'Marke' und 'Baujahr' sowie eine Methode 'alter', die das Alter des Autos berechnet, definiert.","public class Auto {
+  private String marke;
+  private int baujahr;
+
+  public Auto(String marke, int baujahr) {
+    this.marke = marke;
+    this.baujahr = baujahr;
+  }
+
+  public int alter() {
+    int aktuellesJahr = java.time.Year.now().getValue();
+    return aktuellesJahr - this.baujahr;
+  }
+}",Frühjahr
