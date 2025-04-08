@@ -16,6 +16,7 @@ def load_data_from_json(folder_path):
 
 if __name__ == "__main__":
     df = load_data_from_json("data/converted_json")
-    print("!DATEN ERFOLGREICH GELADEN!")
-    print(df.head(5))  # Vorschau für erste 5 Zeilen
+    print("_____________!DATEN ERFOLGREICH GELADEN!!DATEN ERFOLGREICH GELADEN!_____________")
+    print(df.head(5))  # vorschau der ersten 5 zeilen 
     df.to_csv("training_data.csv", index=False)  # speichert datensatz für spätere modelle
+    
