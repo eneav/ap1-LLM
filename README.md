@@ -41,6 +41,9 @@ Diese werden für ML-Modelle(Klassifikation & Regression) genutzt
 
 ![visualisierung der training daten](bilder/generierteAufgaben.png) 
 
+## Umgewandelt pdf Format
+
+![pdf](bilder/AP1_Pruefung_2026_FISI.pdfAP1_Pruefung_2026_FISI.pdf) 
 
 ---
 
