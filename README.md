@@ -48,12 +48,12 @@ Diese werden für ML-Modelle(Klassifikation & Regression) genutzt
 ---
 
 
-## Erläuterung der Machine Learning Modelle
+## Erklärung der Machine Learning Modelle
 
 ### `train_model.py` 
-- Lädt alle JSON-Dateien aus `converted_json`
+- Lädt alle JSON Dateien aus `converted_json`
 - Wandelt sie in ein gemeinsames CSV-Format (`training_data.csv`) um
-- Diese Datei kann/wird von ML-Modellen genutzt (z.B. evaluate_model.py)
+- Diese Datei kann/wird von ML-Modellen genutzt (z.B. evaluate_model.py) 
 
 ![visualisierung der training daten](bilder/trainingdata.png)
 
