@@ -3,9 +3,12 @@
 Ein KI-gestütztes Projekt zur Analyse, Prognose und Generierung von AP1-Prüfungsaufgaben für Fachinformatiker.
 
 ## Funktionen
-- Konvertierung echter AP1-Prüfungen in JSON
-- ML-gestützte Analyse (z. B. Klassifikation/Regression nach Thema)
-- LLM-Generierung neuer, realistischer Prüfungsaufgaben
+
+- Konvertierung echter AP1-Prüfungen (Herbst/Frühling 2021-2025) in JSON
+- ML-gestützte Analyse 
+    - Klassifikation von Aufgaben nach Thema
+    - Regression für die Vorhersage (z.B der erwartbaren Punktzahl)
+- LLM-Generierung neuer, realistischer Prüfungsaufgaben (openai API, XXXXXX)
 
 
 

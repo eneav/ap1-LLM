@@ -1,64 +1,102 @@
 # Nutzt die erzeugte CSV-Datei für Klassifikation (aus ergebnis von ml_model\train_model01.py)
-#evaluate für vorhersage, zu welchem thema die Frage gehört
+# evaluate für vorhersage, zu welchem thema die Frage gehört
+# UND: evaluiert zusätzlich das Regressionsmodell (z. B. Punkte, Schwierigkeit etc.)
 
-#er lädt die training_data.csv, welche zuvor in train_model01 generiert wurde
-#daten werden in training/test gesplittet 
-#klass. und regr. werden getestet 
-#randomForestClassifier und linearRegression zeigen ihre Leistung
+# er lädt die training_data.csv, welche zuvor in train_model01 generiert wurde
+# daten werden in training/test gesplittet 
+# klass. und regr. werden getestet 
+# RandomForestClassifier und LinearRegression zeigen ihre Leistung
 
-#ref:
-#class: https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html
-#lin. regr: https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html
+# ref:
+# class: https://scikit-learn.org/stable/modules/generated/sklearn.ensemble.RandomForestClassifier.html
+# lin. regr: https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LinearRegression.html
 
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import classification_report
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import classification_report, mean_absolute_error, mean_squared_error, r2_score
+from sklearn.metrics import root_mean_squared_error
 
 df = pd.read_csv("training_data.csv")
 
-# eingabe der x = frage und y = thema
-X = df["frage"]
-y = df["thema"]
+print("\n---- KLASSIFIKATION -------n")
 
-# aufteilung der trainings und testdaten
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+#auswertung der klass. ab hier
 
-# Vektorisieren | Wandelt Text (Fragen) in Zahlen um, damit ein ML-Modell damit rechnen kann
-# TF-IDF=  Term Frequency-Inverse Document Frequency
+if "thema" in df.columns:
 
-#wörter werden in Vektoren umgewandelt, die Häufigkeit der Wörter in den Fragen wird berücksichtigt
+    # eingabe der x = frage und y = thema
 
-vectorizer = TfidfVectorizer()
-X_train_vec = vectorizer.fit_transform(X_train)
-X_test_vec = vectorizer.transform(X_test)
+    X_class = df["frage"]
+    y_class = df["thema"]
 
-# Klas. modell trainieren
-model = RandomForestClassifier(random_state=42)
-model.fit(X_train_vec, y_train)
-
-# Vorhersage (basierend auf den testdatten | first run train_model01.py !!)
-y_pred = model.predict(X_test_vec)
-
-# Die auswertung zeigt, wie gut das modell ist 
-print("Modell-Auswertung:\n")
-print(classification_report(y_test, y_pred))
+    # aufteilung der trainings und testdaten | referenz dazu im repo https://github.com/eneav/ap1-LLM.git
 
 
 
-#auswerttung in a nutshell 
+    X_train_c, X_test_c, y_train_c, y_test_c = train_test_split(X_class, y_class, test_size=0.2, random_state=42)
 
-#precision = Wieiviel der vom (klassifikations)Modell als z.b. Netzwerke vorhergesagten aufgaben waren auch wirklich netzwerke? 
-                            # randomforestClassifier von scikit-learn 
+    # Vektorisieren | Wandelt Text (Fragen) in Zahlen um, damit ein ML-Modell damit rechnen kann
+    # TF-IDF=  Term Frequency-Inverse Document Frequency
+    # wörter werden in Vektoren umgewandelt, die Häufigkeit der Wörter in den Fragen wird berücksichtigt
 
-#recall = wie viele aller tatsächlichen netzwerk aufgaben hat das modell richtig erkannt ? 
+    vectorizer_c = TfidfVectorizer()
+    X_train_vec_c = vectorizer_c.fit_transform(X_train_c)
+    X_test_vec_c = vectorizer_c.transform(X_test_c)
 
-#f1-score = der mittelwert aus precision und recall (das ist besonders gut bei sehr unbalancierten aufgaben)
+    # Klas. modell trainieren
 
-#support = anzahl der echten aufgaben pro klasse im testdatensatz 
+    model_class = RandomForestClassifier(random_state=42)
+    model_class.fit(X_train_vec_c, y_train_c)
 
+    # Vorhersage (basierend auf den testdaten | first run train_model01.py !!)
 
+    y_pred_class = model_class.predict(X_test_vec_c)
 
+    # Die auswertung zeigt, wie gut das modell ist 
+    print("Modell Auswertung:\n")
+    print(classification_report(y_test_c, y_pred_class, zero_division=0))
 
-#die warnungen sin dfür klassen ( z.b datenschutz o. it sicherheit) gibt es KEINE BEISPIELE ODER KEINE VORHERSAGEN im testdatensatz, also training_data.csv
+    # auswertung in a nutshell 
+    # precision = Wieiviel der vom (klassifikations)Modell als z.b. Netzwerke vorhergesagten aufgaben waren auch wirklich netzwerke? 
+    # recall = wie viele aller tatsächlichen netzwerk aufgaben hat das modell richtig erkannt ? 
+    # f1-score = der mittelwert aus precision und recall (das ist besonders gut bei sehr unbalancierten aufgaben)
+    # support = anzahl der echten aufgaben pro klasse im testdatensatz 
+    # die warnungen sind für klassen (z. B. Datenschutz o. IT-Sicherheit), für die es KEINE BEISPIELE oder KEINE VORHERSAGEN im testdatensatz gab
+
+else:
+    print(" Spalte 'thema' fehlt - Klassifikation wird übersprungen.")
+
+print("\n---------- REGRESSION -------\n")
+
+# === REGRESSION ===
+if "punkte" in df.columns:
+    # x = frage, y = punkte (z. B. Schwierigkeit oder Bewertung)
+    X_reg = df["frage"]
+    y_reg = df["punkte"]
+
+    # daten splitten
+    X_train_r, X_test_r, y_train_r, y_test_r = train_test_split(X_reg, y_reg, test_size=0.2, random_state=42)
+
+    # Vektorisierung auch für Regression
+    vectorizer_r = TfidfVectorizer()
+    X_train_vec_r = vectorizer_r.fit_transform(X_train_r)
+    X_test_vec_r = vectorizer_r.transform(X_test_r)
+
+    # regr. trainieren
+    model_reg = LinearRegression()
+    model_reg.fit(X_train_vec_r, y_train_r)
+
+    # Vorhersage
+    y_pred_reg = model_reg.predict(X_test_vec_r)
+
+    print("Regressions-Auswertung:\n")
+    print(f"MAE:  {mean_absolute_error(y_test_r, y_pred_reg):.2f}")     # mittlerer absoluter Fehler
+    print(f"RMSE: {root_mean_squared_error(y_test_r, y_pred_reg):.2f}")
+                                                                                     # Wurzel aus mittlerem quadr. Fehler
+    print(f"R²:   {r2_score(y_test_r, y_pred_reg):.2f}")               # Erklärte Varianz
+
+else:
+    print(" Spalte 'punkte' fehlt – Regression wird übersprungen.")
