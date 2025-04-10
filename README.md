@@ -43,7 +43,7 @@ Diese werden für ML-Modelle(Klassifikation & Regression) genutzt
 
 ## Umgewandelt pdf Format
 
-![pdf](bilder/AP1_Pruefung_2026_FISI.pdfAP1_Pruefung_2026_FISI.pdf) 
+![pdf](AP1_Pruefung_2026_FISI.pdf) 
 
 ---
 
