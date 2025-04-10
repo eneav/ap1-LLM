@@ -52,6 +52,11 @@ die dateien landen dann in:
 
 --------------------------------------------------------------
 
+
+in diesem falle (mit fertigem/bereitem datensatz AB HIER STARTEN)
+
+
+-------
 5. train data erzeugen 
 
 wandelt die jsons in ein csv um für die ml-modelle:
@@ -97,3 +102,32 @@ hinweise:
 
 ------------------------------------------------------------------------------
 
+
+8 prüfung generieren 
+
+wenn du neue prüfungen generierennach der evaluierung willst (z. B. ap1 2026):
+
+                        python generator/generate_exam.py
+
+die neue json landet dann auch in converted_json, z. B.:
+
+                        generated_ap1_2026_01.json
+
+
+
+
+----------
+
+in a nutshell:
+
+umgebung einrichten 
+
+reqs installieren
+
+datensatz mit train_model aus datensatz data\converted_json generieren lassen 
+
+dann evaluate_model laufen lassen | classiefier&regressor sind in evaluate_model inbegriffen,
+                                  | diese sind getrennt abrufbar, um auswertung ggfs zu trennen 
+
+
+basierend darauf ===> unter generator und  generate_exam die neue prüfung ablaufen lassen ==> data\converted_json\generated_ap1_2026_03.json
