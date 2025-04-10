@@ -60,6 +60,7 @@ if "thema" in df.columns:
     print(classification_report(y_test_c, y_pred_class, zero_division=0))
 
     # auswertung in a nutshell 
+
     # precision = Wieiviel der vom (klassifikations)Modell als z.b. Netzwerke vorhergesagten aufgaben waren auch wirklich netzwerke? 
     # recall = wie viele aller tatsächlichen netzwerk aufgaben hat das modell richtig erkannt ? 
     # f1-score = der mittelwert aus precision und recall (das ist besonders gut bei sehr unbalancierten aufgaben)
@@ -67,7 +68,7 @@ if "thema" in df.columns:
     # die warnungen sind für klassen (z. B. Datenschutz o. IT-Sicherheit), für die es KEINE BEISPIELE oder KEINE VORHERSAGEN im testdatensatz gab
 
 else:
-    print(" Spalte 'thema' fehlt - Klassifikation wird übersprungen.")
+    print(" Spalte 'thema' fehlt - klassifikation wird übersprungen")
 
 print("\n---------- REGRESSION -------\n")
 
@@ -99,4 +100,4 @@ if "punkte" in df.columns:
     print(f"R²:   {r2_score(y_test_r, y_pred_reg):.2f}")               # Erklärte Varianz
 
 else:
-    print(" Spalte 'punkte' fehlt – Regression wird übersprungen.")
+    print(" Spalte 'punkte' fehlt - Regression wird übersprungen.")

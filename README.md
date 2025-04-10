@@ -1,5 +1,5 @@
 
-# AP-LLM 
+# AP1-LLM 
 Ein KI-gestütztes Projekt zur Analyse, Prognose und Generierung von AP1-Prüfungsaufgaben für Fachinformatiker.
 
 ## Funktionen
@@ -8,7 +8,7 @@ Ein KI-gestütztes Projekt zur Analyse, Prognose und Generierung von AP1-Prüfun
 - ML-gestützte Analyse 
     - Klassifikation von Aufgaben nach Thema
     - Regression für die Vorhersage (z.B der erwartbaren Punktzahl)
-- LLM-Generierung neuer, realistischer Prüfungsaufgaben (openai API, XXXXXX)
+- LLM-Generierung neuer, realistischer Prüfungsaufgaben (openai API)
 
 
 
@@ -61,25 +61,60 @@ Diese werden für ML-Modelle(Klassifikation & Regression) genutzt
 return RandomForestClassifier(n_estimators=100, random_state=42)
 ```
 
-![klassifizierungsmodell](bilder/klassBewertung.png)
+
 
 ### `regressor.py`
-- Liefert lineares Regressionsmodell (für die wahrscheinlichkeit der Themen)
+- liefert lineares Regressionsmodell (für die wahrscheinlichkeit der Themen)
 ```python
 return LinearRegression()
 ```
 
 ### `evaluate_model.py`
 - Lädt `training_data.csv`
-- Vektorisiert die Fragen mit TF-IDF
-- Trainiert das Klassifikationsmodell (z. B. für das Thema) 
-- Bewertet Genauigkeit
+- Vektorisiert die Fragen 
+- Trainiert das klassifikationsmodell (z. B. für das Thema) 
+- Bewertet Genauigkeit 
 
 ### `generate_exam.py`
 -Arbeitet mit GPT-4 über openai API. GPT-3.5 ist technisch möglich, liefert für diesen Use Case aber zu ungenaue Ergebnisse(upscaling bei bedarf möglich)
 - Fragt das modell, um realistische neue Prüfungsaufgaben zu generieren (ergebnis in converted_json file) 
 
 
+![propmpttemplate](bilder/generateexamprompt.png)
+
+
+---
+
+## Modell-Auswertung & Metriken
+
+![klassifizierungsmodell](bilder/klassBewertung.png)
+
+### Klassifikation: Welches Thema gehört zur Aufgabe? 
+
+| Metrik     | Bedeutung |
+|------------|-----------|
+| **Precision** | Wie viele der als Thema X vorhergesagten Aufgaben waren wirklich Thema X? |
+| **Recall** | Wie viele der tatsächlichen Thema X-Aufgaben wurden korrekt erkannt? |
+| **F1-Score** | Mittelwert aus Precision & Recall – nützlich bei unausgeglichenen Daten |
+| **Support** | Anzahl der echten Aufgaben dieses Themas im Testdatensatz |
+| **Accuracy** | (unabhängig vom Thema)Wie viele Aufgaben insgesamt korrekt klassifiziert wurden? |
+
+---
+
+### Regression: Wie viele Punkte wird eine Aufgabe wohl haben?
+
+Die Regression (z. B. Lineare regression) versucht vorherzusagen, wie viele Punkte zu einer Aufgabe vergeben werden (z. B. 3, 5, 10 Punkte).  
+Du brauchst dazu die Spalte `"punkte"` in deinen JSONs == diese wird ausgelesen, vektorisiert und ein Regressionsmodell darauf trainiert.
+
+![punkte](bilder/punkte.png)
+
+#### Metriken zur Bewertung:
+
+| Metrik     | Bedeutung |
+|------------|-----------|
+| **MAE**    | Mean Absolute Error= Durchschnittlicher Fehler (z. B. im Schnitt 2 Punkte daneben) |
+| **RMSE**   | Root Mean Squared Error= wie MAE, aber größere Fehler werden stärker gewichtet |
+| **R²**     | R-squared = Erklärt, wie gut dein Modell ist: 1 = perfekt, 0 = schlecht, < 0 = schlechter als Zufall |
 
 
 

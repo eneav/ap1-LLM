@@ -9,8 +9,8 @@ client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 def generate_exam():
     prompt = (
-    "Erstelle drei realistische AP1-Prüfungsaufgaben für Fachinformatiker (FISI), "
-    "Frühjahr 2026. Verwende typische Themen (z. B. Netzwerke, Datenbanken, OOP, ...), "
+    "Erstelle fünf realistische AP1-Prüfungsaufgaben für Fachinformatiker (FISI), "
+    "Frühjahr 2026. Verwende typische Themen (z.B. Netzwerke, Datenbanken, OOP, ...), "
     "und formuliere für jede Aufgabe den Typ (offene Frage, multiple choice, Berechnung), "
     "sowie eine passende Antwort im folgenden JSON-Format:\n\n"
     "[\n"
@@ -24,7 +24,7 @@ def generate_exam():
     '    "frage": "...",\n'
     '    "antwort": "..."\n'
     "  },\n"
-    "  ... (insgesamt 3 Aufgaben)\n"
+    "  ... (insgesamt 5 Aufgaben)\n"
     "]"
 )
 
@@ -41,11 +41,12 @@ def generate_exam():
     try:
         parsed = json.loads(json_string)
     except json.JSONDecodeError:
-        print("Fehler beim Parsen. Ausgabe:")
+        print("fehler beim Parsen. Ausgabe:")
         print(json_string)
         return
 
-    # Pfad zur Datei
+    # weg zur datei (data\converted_json\generated_ap1_2026_03.json)
+
     output_path = os.path.join("data", "converted_json", "generated_ap1_2026_03.json")
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(parsed, f, indent=2, ensure_ascii=False)
